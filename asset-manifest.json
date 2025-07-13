@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/React-ci-cd-project/static/css/main.c642698e.css",
+    "main.js": "/React-ci-cd-project/static/js/main.4c624322.js",
+    "static/js/488.755e254a.chunk.js": "/React-ci-cd-project/static/js/488.755e254a.chunk.js",
+    "static/media/gitlab.svg": "/React-ci-cd-project/static/media/gitlab.f7420a06a8fb8a1470f3500377cff409.svg",
+    "index.html": "/React-ci-cd-project/index.html",
+    "main.c642698e.css.map": "/React-ci-cd-project/static/css/main.c642698e.css.map",
+    "main.4c624322.js.map": "/React-ci-cd-project/static/js/main.4c624322.js.map",
+    "488.755e254a.chunk.js.map": "/React-ci-cd-project/static/js/488.755e254a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c642698e.css",
+    "static/js/main.4c624322.js"
+  ]
+}
