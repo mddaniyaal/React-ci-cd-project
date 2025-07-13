@@ -21,6 +21,9 @@ jobs:
 
       - name: Build the React App
         run: npm run build
-
+        
+      - name: Install dependencies (serve)
+        run: npm install -g serve
+          
       - name: Online Testing
         run: serve -s build 
