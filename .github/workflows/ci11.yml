@@ -1,65 +1,57 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: Node.js CI
+name: CI Workflow
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
-
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: install dependencies
-      run: yarn install
-    - name: Run tests
-      run: yarn test
-    - name: Build app
-      run: yarn build
-    - name: Upload Productions
-      uses: actions/upload-artifact@v3
-      with:
-        name: build
-        path: build/
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Run Tests
+        run: yarn test
+
+      - name: Build App
+        run: yarn build
+
+      - name: Upload Production Build
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build/
 
   testing:
-   needs: build
-   runs-on: ubuntu-latest
-   steps:
-     - name: Download Build Artifact
-       uses: actions/download-artifact@v3
-       with:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v3
+        with:
           name: build
           path: build
-     - name: Install Serve Globally
-       run: yarn global add serve
-     - name: Run Serve in Background
-       run: nohup serve -s build -l 30000 &
-     - name: Wait for Server
-       run: sleep 10
 
-     - name: Curl for React App
-       run: |
-         curl http://localhost:30000 | grep "React App"
+      - name: Install Serve Globally
+        run: yarn global add serve
 
+      - name: Run Serve in Background
+        run: nohup serve -s build -l 30000 &
 
+      - name: Wait for Server
+        run: sleep 10
 
-
-
+      - name: Curl for React App
+        run: |
+          curl http://localhost:30000 | grep "React App"
