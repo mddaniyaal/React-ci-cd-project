@@ -29,3 +29,40 @@ jobs:
     - run: npm install
     - run: npm run build
     - run: npm test
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build
+        path: build/
+    
+
+  test:
+
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies (serve)
+        run: npm install -g serve
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build
+      - name: Productions face testing
+        run: serve -s build &
+      - run: sleep 10
+      - run: curl -s http://localhost:3000 | grep "React App"
+      - name: Stop server (cleanup)
+        run: kill $(cat serve_pid.txt) || true
+    
+    
+
+    
