@@ -59,7 +59,7 @@ jobs:
       - name: Productions face testing
         run: serve -s build &
       - run: sleep 10
-      - run: curl -s http://localhost:3000 | grep "React App"
+      - run: curl -s http://localhost:3000 | grep "Hey Daniyal"
       - name: Stop server (cleanup)
         run: kill $(cat serve_pid.txt) || true
 
