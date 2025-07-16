@@ -68,6 +68,11 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
+      - name: Download artifacts Build Folder
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build
       - name: Build Docker IMage
         uses: docker/build-push-action@v6.18.0
 
