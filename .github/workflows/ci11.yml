@@ -79,8 +79,8 @@ jobs:
       - name: Build Docker Image
         uses: docker/build-push-action@v6
         with:
-          context: .
-          file: ./Dockerfile
+          #context: .
+          #file: ./Dockerfile
           push: false  # Set to true when you're ready to push
           tags: my-app:1.0
 
