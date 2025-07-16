@@ -73,13 +73,13 @@ jobs:
         with:
           name: build
           path: build
-      #- name: Set up Docker Buildx
-       # uses: docker/setup-buildx-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Build Docker Image
         uses: docker/build-push-action@v6
         with:
-          #context: .
+          context: .
           #file: ./Dockerfile
           push: false  # Set to true when you're ready to push
           tags: my-app:1.0
